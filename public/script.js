@@ -200,7 +200,7 @@ function addTodo(todo) {
 }
 
 async function loadTodos(filter = "all") {
-  let url = "/todos";
+  let url = "/api/todos";
   if (filter === "completed") {
     url += "?check=true";
   } else if (filter === "incomplete") {
