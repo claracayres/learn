@@ -8,8 +8,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
 });
 
-const User = mongoose.model("User", userSchema, "login");
-
+const User = mongoose.models.User || mongoose.model("User", userSchema);
 export default async function handler(req, res) {
   if (!connection) {
     connection = await mongoose.connect(process.env.MONGODB_URI);
