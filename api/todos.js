@@ -8,7 +8,7 @@ const todoSchema = new mongoose.Schema({
   check: { type: Boolean, default: false },
 });
 
-const Todo = mongoose.models.Todo || mongoose.model("Todo", todoSchema);
+const Todo = mongoose.models.Todo || mongoose.model("Todo", todoSchema, "todos");
 
 export default async function handler(req, res) {
   try {
