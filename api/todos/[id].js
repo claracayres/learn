@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 let conn = null;
 
-// Schema do Todo
+
 const todoSchema = new mongoose.Schema({
   task: { type: String, required: true, unique: true },
   check: { type: Boolean, default: false },
@@ -21,7 +21,6 @@ export default async function handler(req, res) {
     return res.status(500).json({ success: false, error: "Erro ao conectar no banco" });
   }
 
-  // ✅ Atualizar (PUT)
   if (req.method === "PUT") {
     const { check } = req.body;
 
@@ -42,7 +41,6 @@ export default async function handler(req, res) {
     }
   }
 
-  // ✅ Deletar (DELETE)
   if (req.method === "DELETE") {
     try {
       const deletedTodo = await Todo.findByIdAndDelete(id);
