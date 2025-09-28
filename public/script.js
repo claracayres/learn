@@ -31,9 +31,7 @@ updateLabel();
 const loginForm = document.getElementById("loginForm");
 const usernameInput = document.getElementById("username");
 const passwordInput = document.getElementById("password");
-const loginButton = document.getElementById("loginBtn");
 const loginHeader = document.getElementById("loginHeader");
-const message = document.getElementById("message");
 
 loginForm.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -66,9 +64,8 @@ const registerButton = document.getElementById("registerBtn");
 const registerUsernameInput = document.getElementById("regUsername");
 const registerPasswordInput = document.getElementById("regPassword");
 const registerForm = document.getElementById("registerForm");
-const regMessage = document.getElementById("regMessage");
 
-registerButton.addEventListener("click", (event) => {
+registerButton.addEventListener("click", () => {
   registerSection.style.display = "block";
   loginForm.style.display = "none";
   loginHeader.textContent = "Register";
@@ -102,3 +99,129 @@ registerForm.addEventListener("submit", async (event) => {
 
   registerForm.reset();
 });
+
+// To-do List
+
+const todoInput = document.getElementById("todoInput");
+const addTodoButton = document.getElementById("addTodoBtn");
+const todoForm = document.getElementById("todoForm");
+const todoList = document.getElementById("todoList");
+const filterSelect = document.getElementById("filterSelect");
+
+
+todoForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const task = todoInput.value.trim();
+  let check = false;
+  try {
+    const response = await fetch("/todos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ task, check }),
+    });
+    const data = await response.json();
+
+    if (data.success) {
+      addTodo(data.todo);
+    } else {
+      alert("Failed to add task. Please try again.");
+    }
+  } catch (error) {
+    alert("An error occurred. Please try again later.");
+  }
+  todoForm.reset();
+});
+
+function addTodo(todo) {
+  const li = document.createElement("li");
+  li.textContent = todo.task;
+  li.dataset.id = todo._id;
+
+  let checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.checked = todo.check;
+
+  const deleteBtn = document.createElement("button");
+  deleteBtn.classList.add("deleteBtn");
+  deleteBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
+
+  function updateStyle() {
+    if (checkbox.checked === true) {
+      li.style.textDecoration = "line-through";
+      li.style.color = "rgb(222, 113, 155)";
+    } else {
+      li.style.textDecoration = "none";
+      li.style.color = "rgb(170, 59, 102)";
+    }
+  }
+  updateStyle(checkbox.checked);
+  
+  checkbox.addEventListener("change", async () => {
+    const id = li.dataset.id;
+    const newCheck = checkbox.checked;
+    updateStyle(newCheck);
+
+    try {
+      await fetch(`/todos/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ check: newCheck }),
+      });
+      if (filterSelect.value != "all") {
+        loadTodos(filterSelect.value);
+      }
+    } catch (error) {
+      checkbox.checked = !newCheck;
+      updateStyle(!newCheck);
+      alert("An error occurred while updating the task.");
+    }
+  });
+
+  deleteBtn.addEventListener("click", async () => {
+    const id = li.dataset.id;
+    try {
+        const response = await fetch(`/todos/${id}`, {
+            method: "DELETE",
+        });
+        const data = await response.json();
+        if (data.success) {
+            li.remove();
+        } else {
+            alert("Failed to delete task. Please try again.");
+        }
+    } catch (error) {
+        alert("An error occurred. Please try again later.");
+    }
+});
+
+  todoList.appendChild(li);
+  li.appendChild(deleteBtn);
+  li.prepend(checkbox);
+}
+
+async function loadTodos(filter = "all") {
+  let url = "/todos";
+  if (filter === "completed") {
+    url += "?check=true";
+  } else if (filter === "incomplete") {
+    url += "?check=false";
+  }
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    todoList.innerHTML = "";
+    data.todos.forEach(addTodo);
+  } catch (error) {
+    alert("An error occurred while loading tasks.");
+  }
+}
+filterSelect.value = "all";
+loadTodos();
+
+filterSelect.addEventListener("change", () => {
+  loadTodos(filterSelect.value);
+});
+
+
+

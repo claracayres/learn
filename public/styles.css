@@ -50,11 +50,94 @@ label {
 
 /* Login Form */
 
-input[type="text"],
-input[type="password"] {
+input {
   padding: 10px;
   margin: 10px 10px;
   border: 2px solid rgb(170, 59, 102);
   border-radius: 10px;
   font-size: 1em;
+}
+
+input:focus {
+  outline: none;
+  border-color: rgb(222, 113, 155);
+}
+
+/* To-do List */
+#todoInput {
+  width: 300px;
+}
+
+#todoList {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: center;
+  list-style-type: none;
+  padding: 0;
+}
+
+#todoList li {
+  background-color: rgb(255, 182, 193);
+  margin: 10px auto;
+  padding: 10px;
+  width: 300px;
+  border-radius: 10px;
+  font-size: 1.2em;
+  color: rgb(170, 59, 102);
+  text-align: left;
+}
+input[type="checkbox"] {
+  margin-right: 10px;
+  transform: scale(1.5);
+}
+
+input[type="checkbox"]:checked {
+  accent-color: rgb(170, 59, 102);
+}
+
+#todoList li.completed {
+  text-decoration: line-through;
+  color: rgb(255, 105, 180);
+}
+
+select {
+  padding: 10px;
+  margin: 10px 10px;
+  border: 2px solid rgb(170, 59, 102);
+  background-color: pink;
+  color: rgb(170, 59, 102);
+  border-radius: 10px;
+  font-size: 1em;
+}
+
+select option {
+  background-color: pink;
+  color: rgb(170, 59, 102);
+}
+
+select option:hover {
+  background-color: rgb(251, 140, 157);
+  color: rgb(170, 59, 102);
+}
+
+select option:checked {
+  background-color: rgb(251, 140, 157);
+}
+
+select:focus {
+  outline: none;
+  border-color: rgb(222, 113, 155);
+}
+
+#filterSelect {
+  margin-left: 10px;
+}
+
+.deleteBtn {
+  background: none;
+  border: none;
+  color: rgb(170, 59, 102);
+  cursor: pointer;
+  float: right;
+  font-size: 1.2em;
 }

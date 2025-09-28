@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My website</title>
     <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
   </head>
   <body>
     <div>
@@ -38,8 +42,10 @@
           />
         </div>
         <div>
-          <button id="loginBtn" class="buttons">Login</button>
-          <button id="registerBtn" class="buttons">Register</button>
+          <button type="submit" id="loginBtn" class="buttons">Login</button>
+          <button type="button" id="registerBtn" class="buttons">
+            Register
+          </button>
         </div>
         <p id="message"></p>
       </form>
@@ -60,10 +66,34 @@
             required
           />
         </div>
-        <div>
-          <button id="submitRegisterBtn" class="buttons">Submit</button>
-        </div>
-        <p id="regMessage"></p>
+      </form>
+      <div>
+        <button type="submit" id="submitRegisterBtn" class="buttons">
+          Submit
+        </button>
+      </div>
+      <p id="regMessage"></p>
+    </div>
+
+    <br />
+    <hr />
+    <br />
+
+    <div>
+      <h1>To-do List</h1>
+      <form id="todoForm" type="submit">
+        <input type="text" id="todoInput" placeholder="Enter a task" />
+        <button type="submit" id="addTodoBtn" class="buttons">Add Task</button>
+      </form>
+      <div>
+        <label for="filterSelect">Filter tasks</label>
+        <select id="filterSelect">
+          <option value="all">All</option>
+          <option value="completed">Completed</option>
+          <option value="incomplete">Incomplete</option>
+        </select>
+      </div>
+      <ul id="todoList"></ul>
     </div>
 
     <script src="script.js"></script>
