@@ -65,6 +65,7 @@
         <div>
           <label for="regUsername">Username:</label>
           <input type="text" id="regUsername" placeholder="Username" required />
+          <p id="regUsernameMessage" class="error-message"></p>
         </div>
         <div class="password-container">
           <label for="regPassword">Password:</label>
@@ -75,7 +76,6 @@
             required
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
             title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-        
           />
           <button
             type="button"

@@ -77,6 +77,7 @@ const registerForm = document.getElementById("registerForm");
 const regEyeToggle = document.getElementById("regTogglePassword");
 const regEyeIcon = document.getElementById("regEyeIcon");
 const cancelRegisterButton = document.getElementById("cancelRegisterBtn");
+const regUsernameMessage = document.getElementById("regUsernameMessage");
 
 registerButton.addEventListener("click", () => {
   registerSection.style.display = "block";
@@ -91,7 +92,9 @@ registerForm.addEventListener("submit", async (event) => {
 
   const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
   if (!passwordPattern.test(password)) {
-    alert("Password must contain at least one number, one uppercase and lowercase letter, and be at least 8 characters long.");
+    alert(
+      "Password must contain at least one number, one uppercase and lowercase letter, and be at least 8 characters long."
+    );
     return;
   }
 
@@ -105,12 +108,19 @@ registerForm.addEventListener("submit", async (event) => {
     const data = await response.json();
 
     if (data.success) {
+      regUsernameMessage.textContent = "";
       alert("You can now log in.");
       registerSection.style.display = "none";
       loginForm.style.display = "block";
       loginHeader.textContent = "Login";
     } else {
-      alert("Registration failed. Please try again.");
+      if (data.message && data.message.includes("exists")) {
+        regUsernameMessage.textContent =
+          "Username already exists. Please choose another.";
+      } else {
+        regUsernameMessage.textContent =
+          "Registration failed. Please try again.";
+      }
     }
   } catch (error) {
     alert("An error occurred. Please try again later.");
@@ -124,7 +134,6 @@ cancelRegisterButton.addEventListener("click", () => {
   loginForm.style.display = "block";
   loginHeader.textContent = "Login";
 });
-
 
 regEyeToggle.addEventListener("click", () => {
   const isPressed = regEyeToggle.getAttribute("aria-pressed") === "true";
@@ -141,7 +150,6 @@ const addTodoButton = document.getElementById("addTodoBtn");
 const todoForm = document.getElementById("todoForm");
 const todoList = document.getElementById("todoList");
 const filterSelect = document.getElementById("filterSelect");
-
 
 todoForm.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -189,7 +197,7 @@ function addTodo(todo) {
     }
   }
   updateStyle(checkbox.checked);
-  
+
   checkbox.addEventListener("change", async () => {
     const id = li.dataset.id;
     const newCheck = checkbox.checked;
@@ -214,19 +222,19 @@ function addTodo(todo) {
   deleteBtn.addEventListener("click", async () => {
     const id = li.dataset.id;
     try {
-        const response = await fetch(`/api/todos/${id}`, {
-            method: "DELETE",
-        });
-        const data = await response.json();
-        if (data.success) {
-            li.remove();
-        } else {
-            alert("Failed to delete task. Please try again.");
-        }
+      const response = await fetch(`/api/todos/${id}`, {
+        method: "DELETE",
+      });
+      const data = await response.json();
+      if (data.success) {
+        li.remove();
+      } else {
+        alert("Failed to delete task. Please try again.");
+      }
     } catch (error) {
-        alert("An error occurred. Please try again later.");
+      alert("An error occurred. Please try again later.");
     }
-});
+  });
 
   todoList.appendChild(li);
   li.appendChild(deleteBtn);
@@ -256,6 +264,3 @@ loadTodos();
 filterSelect.addEventListener("change", () => {
   loadTodos(filterSelect.value);
 });
-
-
-
