@@ -32,6 +32,8 @@ const loginForm = document.getElementById("loginForm");
 const usernameInput = document.getElementById("username");
 const passwordInput = document.getElementById("password");
 const loginHeader = document.getElementById("loginHeader");
+const eyeToggle = document.getElementById("togglePassword");
+const eyeIcon = document.getElementById("eyeIcon");
 
 loginForm.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -57,6 +59,14 @@ loginForm.addEventListener("submit", async (event) => {
   }
 
   loginForm.reset();
+});
+
+eyeToggle.addEventListener("click", () => {
+  const isPressed = eyeToggle.getAttribute("aria-pressed") === "true";
+  eyeToggle.setAttribute("aria-pressed", String(!isPressed));
+  eyeIcon.classList.toggle("fa-eye");
+  eyeIcon.classList.toggle("fa-eye-slash");
+  passwordInput.type = isPressed ? "password" : "text";
 });
 
 const registerSection = document.getElementById("registerSection");

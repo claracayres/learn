@@ -141,3 +141,28 @@ select:focus {
   float: right;
   font-size: 1.2em;
 }
+
+.deleteBtn:hover {
+  color: rgb(255, 105, 180);
+}
+
+.password-container {
+  position: relative;
+  display: inline-block;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: rgb(170, 59, 102);
+  cursor: pointer;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2em;
+}
+
+.icon-btn:hover {
+  color: rgb(255, 105, 180);
+}
