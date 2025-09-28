@@ -114,9 +114,11 @@ registerForm.addEventListener("submit", async (event) => {
       loginForm.style.display = "block";
       loginHeader.textContent = "Login";
     } else {
-      if (data.message && data.message.includes("exists")) {
+      if (data.message && data.message.toLowerCase().includes("usuário já existe")) {
         regUsernameMessage.textContent =
           "Username already exists. Please choose another.";
+      } else if (data.message) {
+        regUsernameMessage.textContent = data.message;
       } else {
         regUsernameMessage.textContent =
           "Registration failed. Please try again.";
