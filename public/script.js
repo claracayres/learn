@@ -76,6 +76,7 @@ const registerPasswordInput = document.getElementById("regPassword");
 const registerForm = document.getElementById("registerForm");
 const regEyeToggle = document.getElementById("regTogglePassword");
 const regEyeIcon = document.getElementById("regEyeIcon");
+const cancelRegisterButton = document.getElementById("cancelRegisterBtn");
 
 registerButton.addEventListener("click", () => {
   registerSection.style.display = "block";
@@ -87,6 +88,12 @@ registerForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const username = registerUsernameInput.value;
   const password = registerPasswordInput.value;
+
+  const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+  if (!passwordPattern.test(password)) {
+    alert("Password must contain at least one number, one uppercase and lowercase letter, and be at least 8 characters long.");
+    return;
+  }
 
   try {
     const response = await fetch("/api/register", {
@@ -110,6 +117,12 @@ registerForm.addEventListener("submit", async (event) => {
   }
 
   registerForm.reset();
+});
+
+cancelRegisterButton.addEventListener("click", () => {
+  registerSection.style.display = "none";
+  loginForm.style.display = "block";
+  loginHeader.textContent = "Login";
 });
 
 

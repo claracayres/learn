@@ -73,6 +73,9 @@
             id="regPassword"
             placeholder="Password"
             required
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            title="Must contain at least one number and one uppercase and lowercase letter, and at least
+        
           />
           <button
             type="button"
@@ -87,6 +90,9 @@
         <div>
           <button type="submit" id="submitRegisterBtn" class="buttons">
             Submit
+          </button>
+          <button type="button" id="cancelRegisterBtn" class="buttons">
+            Cancel
           </button>
         </div>
       </form>
