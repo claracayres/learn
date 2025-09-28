@@ -74,6 +74,8 @@ const registerButton = document.getElementById("registerBtn");
 const registerUsernameInput = document.getElementById("regUsername");
 const registerPasswordInput = document.getElementById("regPassword");
 const registerForm = document.getElementById("registerForm");
+const regEyeToggle = document.getElementById("regTogglePassword");
+const regEyeIcon = document.getElementById("regEyeIcon");
 
 registerButton.addEventListener("click", () => {
   registerSection.style.display = "block";
@@ -108,6 +110,15 @@ registerForm.addEventListener("submit", async (event) => {
   }
 
   registerForm.reset();
+});
+
+
+regEyeToggle.addEventListener("click", () => {
+  const isPressed = regEyeToggle.getAttribute("aria-pressed") === "true";
+  regEyeToggle.setAttribute("aria-pressed", String(!isPressed));
+  regEyeIcon.classList.toggle("fa-eye");
+  regEyeIcon.classList.toggle("fa-eye-slash");
+  registerPasswordInput.type = isPressed ? "password" : "text";
 });
 
 // To-do List
