@@ -162,7 +162,7 @@ function addTodo(todo) {
     updateStyle(newCheck);
 
     try {
-      await fetch(`/todos/${id}`, {
+      await fetch(`/api/todos/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ check: newCheck }),
@@ -180,7 +180,7 @@ function addTodo(todo) {
   deleteBtn.addEventListener("click", async () => {
     const id = li.dataset.id;
     try {
-        const response = await fetch(`/todos/${id}`, {
+        const response = await fetch(`/api/todos/${id}`, {
             method: "DELETE",
         });
         const data = await response.json();
