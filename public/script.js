@@ -39,7 +39,7 @@ loginForm.addEventListener("submit", async (event) => {
   const password = passwordInput.value;
 
   try {
-    const response = await fetch("/login", {
+    const response = await fetch("/api/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
@@ -77,7 +77,7 @@ registerForm.addEventListener("submit", async (event) => {
   const password = registerPasswordInput.value;
 
   try {
-    const response = await fetch("/register", {
+    const response = await fetch("/api/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
@@ -114,7 +114,7 @@ todoForm.addEventListener("submit", async (event) => {
   const task = todoInput.value.trim();
   let check = false;
   try {
-    const response = await fetch("/todos", {
+    const response = await fetch("/api/todos", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ task, check }),
